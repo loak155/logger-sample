@@ -1,5 +1,6 @@
-from logging import getLogger, handlers, config, StreamHandler, Formatter, INFO
 import json
+from logging import INFO, Formatter, StreamHandler, config, getLogger, handlers
+
 import yaml
 
 
@@ -67,11 +68,19 @@ def get_logger_from_json(json_path):
     return logger
 
 
+def get_logger_from_ini(ini_path):
+    config.fileConfig(ini_path)
+    logger = getLogger(__name__)
+    logger.info("finish get_logger_from_ini")
+    return logger
+
+
 def main():
     # logger = get_console_logger()
     # logger = get_file_logger()
     # logger = get_logger_from_yaml("logging.yaml")
-    logger = get_logger_from_json("logging.json")
+    # logger = get_logger_from_json("logging.json")
+    logger = get_logger_from_ini("logging.ini")
 
     logger.debug("This is a Debug message")
     logger.info("This is a Info message")
